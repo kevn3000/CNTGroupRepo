@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 import java.lang.*;
+import java.lang.management.ManagementFactory;
 
 //Client 
 public class newClient extends Clock 
@@ -38,7 +39,8 @@ public class newClient extends Clock
             break;
          
          case "2":
-            System.out.println("Clear");
+            System.out.println("Retrieving uptime...");
+            System.out.println("\nUptime is "+ManagementFactory.getRuntimeMXBean().getUptime()+" milliseconds \n");
             break;
             
          case "3":
