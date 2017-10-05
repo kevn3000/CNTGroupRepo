@@ -3,9 +3,6 @@ import java.util.*;
 import java.net.*;
 
 public class Server {
-   /**
-    * @param args The command line arguments
-    */
 	public static void main(String[] args) throws IOException {
 	  //Variables - local
 	  int portNumber = 2202;
