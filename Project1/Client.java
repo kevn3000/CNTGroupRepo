@@ -7,9 +7,6 @@ public class Client {
 	public static String userInput;
 	public static int option;
 
-	/**
-	 * @param args The command line arguments for output
-	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// Variables - Local
