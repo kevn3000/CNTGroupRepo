@@ -36,12 +36,12 @@ public class MultiClient {
 		  
 		 
 				 
-				System.out.println( "1) Server Current Date and Time\n"
-						+           "2) Server Current Uptime\n"
-						+           "3) Server Current Memory Use\n"
-						+           "4) Server Current Netstat\n"
-						+           "5) Server Current Users\n"
-						+           "6) Server Running Processes\n"
+				System.out.println( "1) Host Current Date and Time\n"
+						+           "2) Host Current Uptime\n"
+						+           "3) Host Current Memory Use\n"
+						+           "4) Host Current Netstat\n"
+						+           "5) Host Current Users\n"
+						+           "6) Host Running Processes\n"
 						+           "7) Quit\n" );
 
 				System.out.println("Select your option: ");
