@@ -68,25 +68,25 @@ public class Client {
 						case '3':
 							out.println("3");
 							System.out.println("");
+							System.out.println("=-=-=-=-=-\tServer Memory Response:");
+							while ((serverResponse = in.readLine()) != null && !serverResponse.equals("Bye."))
+								System.out.println(serverResponse);
+							System.out.println("=-=-=-=-=-\tEnd of Response");
+							continue;
+						case '4':
+							out.println("4");
+							System.out.println("");
 							System.out.println("=-=-=-=-=-\tServer Netstat Response:");
 							while ((serverResponse = in.readLine()) != null && !serverResponse.equals("Bye."))
 								System.out.println(serverResponse);
 							System.out.println("=-=-=-=-=-\tEnd of Response");
 							serverResponse=null;
-							break;
-						case '4':
-							out.println("4");
-							System.out.println("");
-							System.out.println("=-=-=-=-=-\tServer Memory Response:");
-							while ((serverResponse = in.readLine()) != null && !serverResponse.equals("Bye."))
-								System.out.println(serverResponse);
-							System.out.println("=-=-=-=-=-\tEnd of Response");
-							serverResponse=null;
-							break;
+							continue;
 						case '5':
 							out.println("5");
 							System.out.println("");
-							System.out.println("Current Users: " + in.readLine());
+							String users = in.readLine();
+							System.out.println("Current Users: " + users);
 							break;
 						case '6':
 							out.println("6");
@@ -96,11 +96,11 @@ public class Client {
 								System.out.println(serverResponse);
 							System.out.println("=-=-=-=-=-\tEnd of Response");
 							serverResponse=null;
-							break;
+							continue;
 						case '7':
 							out.println("7");
 							System.out.println("");
-							System.out.println(in.readLine());
+							System.out.println("  --  Quitting...");
 							return;
 						default:
 							System.err.println ("  --  Unrecognized option.");
