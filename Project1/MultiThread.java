@@ -57,7 +57,7 @@ public class MultiThread extends Thread {
 					break;
 					case "4":
 						System.out.println("Responding to netstat request from the client ");
-						String[] cmdC = {"bash", "-c", "ss -t -a | grep ESTAB | wc -l"};
+						String[] cmdC = {"bash", "-c", "netstat -r"};
 						cmdProc = Runtime.getRuntime().exec(cmdC);
 					break;
 					case "5":
