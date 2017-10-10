@@ -112,7 +112,7 @@ public class Client {
 					while ((userInput = in.readLine()) != null && !userInput.equalsIgnoreCase("Bye.")) {
 						out.println(userInput);
 					}//end while
-					//break;
+					break;
 				} //end for loop
 				long end_time = System.currentTimeMillis();
 
