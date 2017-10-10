@@ -18,9 +18,9 @@ public class Server extends Thread {
 
 		//Listen
 		try {
-			PrintWriter out = new PrintWriter(s.getOutputStream(), true); //keep the output open
+			PrintWriter out = new PrintWriter(s.getOutputStream(),true); //keep the output open
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream())); //listen for input
-
+			
 			//while it is open (listening for requests)
 			while(true){     
 				//local vars
@@ -65,7 +65,7 @@ public class Server extends Thread {
 					break;
 					case "6":
 						System.out.println("Responding to current processes request from the client ");
-						String[] cmdE = {"bash", "-c", "ps -aux | less"};
+						String[] cmdE = {"bash", "-c", "ps"};
 						cmdProc = Runtime.getRuntime().exec(cmdE);
 					break;
 					case "7":
@@ -73,7 +73,6 @@ public class Server extends Thread {
 						String[] cmdF = {"bash", "-c", "exit"};
 						cmdProc = Runtime.getRuntime().exec(cmdF);
 						s.close();
-						System.out.println("Socket closed.\n");
 					break;
 					default:
 						System.out.println("Unknown request ");
@@ -85,6 +84,7 @@ public class Server extends Thread {
 				while((cmdans = cmdin.readLine()) != null) {
 					out.println(cmdans);
 					if (cmdans.equalsIgnoreCase("Bye.")) {
+						out.println("Bye.");
 						break;
 					}//end if
 				}//end while
