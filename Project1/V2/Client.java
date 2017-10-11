@@ -12,19 +12,13 @@ public class Client {
 	//local vars
     String hostName = args[0];
     int portNumber = Integer.parseInt(args[1]);
+	//int numberClients = Integer.parseInt(args[2]);
 	String serverResponse;
-
-		//if the user executes the java without params (args)
-        if (args.length != 2){
-			System.err.println("You need the server and port: java Client <host name> <port number>");
-			System.err.println("  --                 Example: java Client 192.168.100.102 3333");
-            System.exit(1);
-        }//end if
 
 		//When successful, it will establish a socket
         try{
             Socket clientSocket = new Socket(hostName, portNumber);
-			System.out.println(" -- Connected Client" + clientNumber);
+			System.out.println(" -- Connected Client to " + hostName + " " + portNumber);
             //While the socket is open, it will listen for host response and display menu after
 			while(true){  
 
