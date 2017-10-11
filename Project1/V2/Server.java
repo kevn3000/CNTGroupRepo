@@ -36,7 +36,7 @@ public class Server extends Thread {
 				switch (option){
 					case "1": 
 						System.out.println("Responding to date request from the client ");
-						String[] cmd = {"bash", "-c", "date +%D%t%T%t%Z"};
+						String[] cmd = {"bash", "-c", "date +%D%t%T%Z"};
 						cmdProc = Runtime.getRuntime().exec(cmd);
 					break;
 					case "2":
