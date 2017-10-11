@@ -13,10 +13,8 @@ public class Server extends Thread {
 	//run method
     @Override
     public void run() {
-		//vars
-		int clientNumber=0;
 		//Announce new client connection
-		System.out.println("  --  Client connected..." );
+		System.out.println("  --  Client connected..."  + Thread.currentThread().getName());
 
 		//Listen
 		try {
@@ -35,32 +33,32 @@ public class Server extends Thread {
 				//exectute commend in linux format
 				switch (option){
 					case "1": 
-						System.out.println("Responding to date request from the client ");
+						System.out.println("Responding to date request from the client");
 						String[] cmd = {"bash", "-c", "date +%D%t%T%Z"};
 						cmdProc = Runtime.getRuntime().exec(cmd);
 					break;
 					case "2":
-						System.out.println("Responding to uptime request from the client ");
+						System.out.println("Responding to uptime request from the client");
 						String[] cmdA = {"bash", "-c", "uptime -p"};
 						cmdProc = Runtime.getRuntime().exec(cmdA);
 					break;
 					case "3":
-						System.out.println("Responding to number of active socket connections request from the client ");
+						System.out.println("Responding to number of active socket connections request from the client");
 						String[] cmdB = {"bash", "-c", "free -m"};
 						cmdProc = Runtime.getRuntime().exec(cmdB);
 					break;
 					case "4":
-						System.out.println("Responding to netstat request from the client ");
+						System.out.println("Responding to netstat request from the client");
 						String[] cmdC = {"bash", "-c", "netstat -r"};
 						cmdProc = Runtime.getRuntime().exec(cmdC);
 					break;
 					case "5":
-						System.out.println("Responding to current users request from the client ");
+						System.out.println("Responding to current users request from the client");
 						String[] cmdD = {"bash", "-c", "users"};
 						cmdProc = Runtime.getRuntime().exec(cmdD);
 					break;
 					case "6":
-						System.out.println("Responding to current processes request from the client ");
+						System.out.println("Responding to current processes request from the client");
 						String[] cmdE = {"bash", "-c", "ps"};
 						cmdProc = Runtime.getRuntime().exec(cmdE);
 					break;
@@ -69,7 +67,8 @@ public class Server extends Thread {
 						String[] cmdF = {"bash", "-c", "exit"};
 						cmdProc = Runtime.getRuntime().exec(cmdF);
 						s.close();
-						clientNumber = 0;
+						in.close();
+						out.close();
 					break;
 					default:
 						System.out.println("Unknown request ");
@@ -96,7 +95,6 @@ public class Server extends Thread {
 		}// end catch
 		catch (NullPointerException e) {
 			System.out.println("  --  All clients disconnected. Closing Socket...");
-			clientNumber = 0;
 			System.exit(1);
 		}//end catch
 
@@ -115,7 +113,7 @@ public class Server extends Thread {
 
 			//Keep server open and accept multiple clients
 			while(true){      
-				new Server(serverSocket.accept()).start();
+				new Server(serverSocket.accept()).run();
 			}//End while
         }//End try
         catch (IOException e){
