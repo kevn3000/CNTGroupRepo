@@ -14,7 +14,7 @@ public class Server extends Thread {
     @Override
     public void run() {
 		//Announce new client connection
-		System.out.println("  --  Client connected..."  + Thread.currentThread().getName());
+		System.out.println("  --  Client connected...");
 
 		//Listen
 		try {
@@ -113,7 +113,7 @@ public class Server extends Thread {
 
 			//Keep server open and accept multiple clients
 			while(true){      
-				new Server(serverSocket.accept()).run();
+				new Server(serverSocket.accept()).start();
 			}//End while
         }//End try
         catch (IOException e){
