@@ -25,12 +25,11 @@ public class MultiClient {
         String hostName = args[0];
         int portNumber = Integer.parseInt(args[1]);
         String serverResponse;
-//	Boolean loadedThread = false;
 
 
         //ERROR: If hostName or portNumber is wrong 
         if (args.length != 2) {
-            System.err.println("Usage: java client <host name> <port number>");
+            System.err.println("Usage: java MultiClient <host name> <port number>");
             System.exit(1);
         }//End if 
 
@@ -47,8 +46,6 @@ public class MultiClient {
                 Scanner s = new Scanner(System.in);
                 int numThreads = 0;
 		
-		//threads question or not...
-//		if (loadedThread == false) {
             		//Ask client how many threads should be executed 
                 	System.out.println("How many threads would you like to execute this session?\n");
                 	numThreads = s.nextInt();
@@ -59,8 +56,6 @@ public class MultiClient {
                     		client.start();
                     		System.out.println("Starting thread " + i);
                 	}//End for loop
-//		loadedThread = true;
-//		}//end if
                 //Display menu to client 
                 System.out.println("1) Host Current Date and Time\n"
                         + "2) Host Uptime\n"
@@ -84,8 +79,6 @@ public class MultiClient {
                         long end_time = System.currentTimeMillis();
                         System.out.println("\nRequest is complete...\n");
                         System.out.println("--- Execution time: " + (end_time - start_time) + "ms");
-			// clear all loaded clients
-
                         break;
                     //Host Uptime
                     case '2':
@@ -149,7 +142,6 @@ public class MultiClient {
                     case '7':
                         out.println("7");
                         System.out.println("Quiting..." + in.readLine());
-			loadedThread = false;
                         return;
                     //Invalid Input 
                     default:
