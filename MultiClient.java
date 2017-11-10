@@ -1,4 +1,4 @@
-//package multiclient;
+package multiclient;
 
 //Imports
 import java.io.BufferedReader;
@@ -9,135 +9,108 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
-import java.lang.Boolean;
 
-//CNT4504 Project 1 
-//Brandon DeCrescenzo, Tytus Hamilton, Cina Kim, Chelsea Saffold, and Kevin Serrano
 public class MultiClient {
 
-    //Global variables
     public static String userInput;
     public static int times, option;
 
+    //CNT4504 Project 2
+    //Brandon DeCrescenzo, Tytus Hamilton, Cina Kim, Chelsea Saffold, and Kevin Serrano 
     public static void main(String[] args) throws IOException {
 
-        //Local variables     
+        //Local variables 
         String hostName = args[0];
         int portNumber = Integer.parseInt(args[1]);
         String serverResponse;
 
-
         //ERROR: If hostName or portNumber is wrong 
         if (args.length != 2) {
-            System.err.println("Usage: java MultiClient <host name> <port number>");
+            System.err.println("Usage: java Client <host name> <port number>");
             System.exit(1);
-        }//End if 
+        }
 
         //If hostName and portNumber is correct, proceed...
         try {
             //Create socket 
             Socket clientSocket = new Socket(hostName, portNumber);
 
-            //While socket is open and listening...
+            //While socket is opening & listening...
             while (true) {
+
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
                 Scanner s = new Scanner(System.in);
-                int numThreads = 0;
-		
-            		//Ask client how many threads should be executed 
-                	System.out.println("How many threads would you like to execute this session?\n");
-                	numThreads = s.nextInt();
 
-                	//Create threads
-                	for (int i = 0; i < numThreads; i++) {
-                   	 	ClientThread client = new ClientThread(clientSocket);
-                    		client.start();
-                    		System.out.println("Starting thread " + i);
-                	}//End for loop
+                //Start time 
+                long start_time = System.currentTimeMillis();
+
                 //Display menu to client 
-                System.out.println("1) Host Current Date and Time\n"
+                System.out.println(
+                        "1) Host Current Date and Time\n"
                         + "2) Host Uptime\n"
                         + "3) Host Memory Use\n"
                         + "4) Host Netstat\n"
                         + "5) Host Current Users\n"
                         + "6) Host Running Processes\n"
-                        + "7) Quit\n");
+                        + "7) Quit\n"
+                );
 
-                //Ask client to select an option 
-                System.out.println("Please, select an option: ");
+                //Ask client for selection 
+                System.out.println("Select your option: ");
                 option = stdIn.read();
 
-                //Switch for menu options
+                //Ask client how threads they would like to run in the background 
+                //TODO: Create for loop on server side 
+                //System.out.println("How many times would you like to execute this command?");
+                //times = s.nextInt();
+                
+                //Switch for options 
                 switch (option) {
                     //Host Current Date & Time
                     case '1':
                         out.println("1");
-                        long start_time = System.currentTimeMillis();
                         System.out.println("Current Date & Time: " + in.readLine());
-                        long end_time = System.currentTimeMillis();
-                        System.out.println("\nRequest is complete...\n");
-                        System.out.println("--- Execution time: " + (end_time - start_time) + "ms");
                         break;
                     //Host Uptime
                     case '2':
                         out.println("2");
-                        start_time = System.currentTimeMillis();
                         System.out.println("Uptime: " + in.readLine());
-                        end_time = System.currentTimeMillis();
-                        System.out.println("\nRequest is complete...\n");
-                        System.out.println("--- Execution time: " + (end_time - start_time) + "ms");
                         break;
                     //Host Memory Use
                     case '3':
                         out.println("3");
-                        start_time = System.currentTimeMillis();
                         System.out.println("Memory Use: " + in.readLine());
                         while ((serverResponse = in.readLine()) != null && !serverResponse.equals("Bye.")) {
                             System.out.println(serverResponse);
                         }
-                        end_time = System.currentTimeMillis();
-                        System.out.println("\nRequest is complete...\n");
-                        System.out.println("--- Execution time: " + (end_time - start_time) + "ms");
                         continue;
                     //Host Netstat
                     case '4':
                         out.println("4");
-                        start_time = System.currentTimeMillis();
                         System.out.println("Netstat: " + in.readLine());
                         while ((serverResponse = in.readLine()) != null && !serverResponse.equals("Bye.")) {
                             System.out.println(serverResponse);
                         }
                         serverResponse = null;
-                        end_time = System.currentTimeMillis();
-                        System.out.println("\nRequest is complete...\n");
-                        System.out.println("--- Execution time: " + (end_time - start_time) + "ms");
                         continue;
                     //Host Current Users 
                     case '5':
                         out.println("5");
-                        start_time = System.currentTimeMillis();
                         System.out.println("");
                         String users = in.readLine();
                         System.out.println("Current Users: " + in.readLine());
-                        end_time = System.currentTimeMillis();
-                        System.out.println("\nRequest is complete...\n");
-                        System.out.println("--- Execution time: " + (end_time - start_time) + "ms");
                         break;
                     //Host Running Processes 
                     case '6':
                         out.println("6");
-                        start_time = System.currentTimeMillis();
                         System.out.println("Running Processes: " + in.readLine());
                         while ((serverResponse = in.readLine()) != null && !serverResponse.equals("Bye.")) {
                             System.out.println(serverResponse);
                         }
                         serverResponse = null;
-                        end_time = System.currentTimeMillis();
-                        System.out.println("\nRequest is complete...\n");
-                        System.out.println("--- Execution time: " + (end_time - start_time) + "ms");
-                        continue; 
+                        continue;
                     //Quit 
                     case '7':
                         out.println("7");
@@ -148,8 +121,20 @@ public class MultiClient {
                         System.err.println("ERROR! Invalid input... Please type a number between 1 and 7.");
                         continue;
                 }//End switch 
-            }//End while 
+
+                //while ((userInput = in.readLine()) != null && !userInput.equalsIgnoreCase("ServerDone")) {
+                    //out.println(userInput);
+                //}
+                
+                //End timer 
+                long end_time = System.currentTimeMillis();
+                
+                System.out.println("Request is complete..."); 
+                //Print length of time and status of option
+                System.out.println("--" + "This command took " + (end_time - start_time) + "ms");
+            }//End while loop
         }//End try
+        
         //Catch errors 
         //If input for menu is not in number format 
         catch (NumberFormatException e) {
@@ -174,3 +159,4 @@ public class MultiClient {
     }//End main
 
 }//End MultiClient
+
