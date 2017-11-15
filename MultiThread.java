@@ -97,7 +97,7 @@ public class MultiThread extends Thread {
                 while ((cmdans = cmdin.readLine()) != null) {
                     out.println(cmdans);
                 }
-                out.println("Server done...");
+                out.println("Bye.");
             }//End while
 
         }//End try
@@ -109,6 +109,6 @@ public class MultiThread extends Thread {
         }//End catch
 
     }//End run()
-    
+        
 } //end MultiThread
 
